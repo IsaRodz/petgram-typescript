@@ -1,11 +1,6 @@
-import { AxiosResponse } from 'axios';
 import { useState, useEffect } from 'react';
-import { DataResponse, Post } from '../interfaces';
-import axios from '../providers/axios';
-
-interface Response extends AxiosResponse {
-  data: DataResponse;
-}
+import { Post } from '../interfaces';
+import api from '../providers/api';
 
 export default function useGetPosts(page: number) {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -16,8 +11,7 @@ export default function useGetPosts(page: number) {
       return;
     }
     try {
-      // TODO: create a API proxy class or object with its methods
-      const { data }: Response = await axios.get(`/post?page=${page}`);
+      const data = await api.getPosts(page);
       setPosts((prev) => prev.concat(data.data));
       if (data.data.length >= data.total) {
         setHasMore(false);

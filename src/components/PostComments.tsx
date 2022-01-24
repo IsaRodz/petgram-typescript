@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Box,
   HStack,
@@ -9,17 +10,11 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
-import { Comment, DataResponse } from '../interfaces';
-import axios from '../providers/axios';
+import { Comment } from '../interfaces';
+import api from '../providers/api';
 
 interface Props {
   postId: string;
-}
-
-interface Response extends AxiosResponse {
-  data: DataResponse;
 }
 
 export default function PostComments({ postId }: Props) {
@@ -28,9 +23,9 @@ export default function PostComments({ postId }: Props) {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`/post/${postId}/comment`)
-      .then(({ data }: Response) => {
+    api
+      .getCommentsByPost(postId)
+      .then((data) => {
         setComments(data.data);
       })
       .finally(() => {
