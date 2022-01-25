@@ -4,26 +4,23 @@ import api from '../providers/api';
 
 export default function useGetPosts(page: number) {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
-    if (!hasMore) {
-      return;
-    }
     try {
-      const data = await api.getPosts(page);
-      setPosts((prev) => prev.concat(data.data));
-      if (data.data.length >= data.total) {
-        setHasMore(false);
-      }
+      setLoading(true);
+      const { data } = await api.getPosts(page);
+      setPosts(data);
     } catch (error) {
       console.error(error);
     } finally {
+      setLoading(false);
     }
   };
+
   useEffect(() => {
     getData();
   }, [page]);
 
-  return { posts, hasMore };
+  return { posts, loading };
 }

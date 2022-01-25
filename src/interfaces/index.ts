@@ -1,8 +1,13 @@
-export interface DataResponse {
+export interface ResponseData {
   data: any[];
   total: number;
   page: number;
   limit: number;
+}
+
+export interface ReducerAction {
+  payload: any;
+  type: string | number;
 }
 
 export interface User {

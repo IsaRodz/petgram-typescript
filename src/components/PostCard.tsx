@@ -26,14 +26,7 @@ function PostCard(props: Props) {
 
   return (
     <>
-      <Box
-        background={background}
-        borderRadius="lg"
-        boxShadow="md"
-        maxWidth="520"
-        mx="auto"
-        mb="5"
-      >
+      <Box background={background} borderRadius="lg" boxShadow="md">
         <Box paddingX="4" paddingY="3">
           <HStack mb="1">
             <Image src={post.owner.picture} width="8" borderRadius="50%" />
@@ -53,14 +46,10 @@ function PostCard(props: Props) {
         <Image src={post.image} />
         <HStack paddingX="4" paddingY="2" justifyContent="space-between">
           <HStack>
-            <Text color="gray.700">{post.likes} liked this</Text>
+            <Text opacity={0.5}>{post.likes} liked this</Text>
           </HStack>
           <ButtonGroup>
-            <Button
-              leftIcon={<FaHeart />}
-              variant="ghost"
-              colorScheme="twitter"
-            >
+            <Button leftIcon={<FaHeart />} variant="ghost" colorScheme="twitter">
               Like
             </Button>
             <Button
